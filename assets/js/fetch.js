@@ -1,5 +1,9 @@
 const usersContainer = document.getElementById("wrap-users");
 const deleteModal = document.getElementById("delete-modal");
+const editModal = document.querySelector('#edit-modal')
+const firstname = document.querySelector('.firstname')
+const lastname = document.querySelector('.lastname')
+const password = document.querySelector('.password')
 let userId = null;
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -32,7 +36,7 @@ function getAllUsers() {
                     </div>
                     <div class="btn-groups-column">
                         <button class="delete-user-btn" onclick="openDeleteModal('${user[0]}')">delete</button>
-                        <button class="edit-user-btn">edit</button>
+                        <button class="edit-user-btn" onclick="openEditModal('${user[0]}')">edit</button>
                     </div>
                 </div>
     
@@ -67,5 +71,36 @@ function deleteUser() {
         closeDeleteModal()
     })
 
+
+}
+///////////////////////////////////////////////////////////////Edit user//////////////////////////////////////////////////////////
+function openEditModal(id) {
+    userID = id
+
+    editModal.classList.add('visible')
+
+}
+function updateUser() {
+
+    // Update User
+
+    const userNewData = {
+        firstname: firstname.value,
+        lastname: lastname.value,
+        password: password.value,
+    }
+
+    fetch(`https://js-project-20b4c-default-rtdb.firebaseio.com/users/${userID}.json`, {
+        method: 'PUT',
+        headers: {
+            "Content-type": 'application/json'
+        },
+        body: JSON.stringify(userNewData)
+    })
+        .then(res => {
+            console.log(res)
+            closeEditModal()
+            getAllUsers()
+        })
 
 }

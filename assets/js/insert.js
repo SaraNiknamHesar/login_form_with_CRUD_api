@@ -3,15 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to get form data
     const getFormData = () => ({
-        title: document.querySelector(".firstname").value.trim(),
-        price: document.querySelector(".lastname").value.trim(),
-        count: document.querySelector(".password").value.trim(),
+        firstname: document.querySelector(".firstname").value.trim(),
+        lastname: document.querySelector(".lastname").value.trim(),
+        password: document.querySelector(".password").value.trim(),
     });
 
     // Function to send data to Firebase
     const postData = async (userData) => {
         try {
-            const response = await fetch("https://js-project-20b4c-default-rtdb.firebaseio.com/product.json", {
+            const response = await fetch("https://js-project-20b4c-default-rtdb.firebaseio.com/users.json", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(userData),
